@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:14
+    environment:
+      - POSTGRES_USER=kostya_stage2
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=stage2_server_v2
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+  app:
+    container_name: app
+    image: app
+    build:
+      context: .
+    environment:
+      - PORT=3000
+      - POSTGRES_PORT=5432
+      - POSTGRES_HOST=postgres
+      - POSTGRES_USER=kostya_stage2
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=stage2_server_v2
+    depends_on:
+      - postgres
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run start:dev
+
+volumes:
+  pgdata:
