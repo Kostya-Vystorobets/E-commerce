@@ -3,10 +3,8 @@ import {
   Controller,
   Post,
   UsePipes,
-  Session,
   ValidationPipe,
   UseGuards,
-  Get,
   HttpCode,
   HttpStatus,
 } from "@nestjs/common";
@@ -14,17 +12,12 @@ import {
   SwaggerUserApiTags,
   SwaggerUserCreate,
   SwaggerUserLogin,
-  SwaggerUserLogout,
 } from "./decorators/user.decorators.swagger";
 import { CreateUserDto } from "./dto/createUser.dto";
 import { LoginUserDto } from "./dto/login.dto";
 import { UserSevice } from "./user.service";
-import { Session as SessionData } from "express-session";
 import { AuthGuard } from "./guards/auth.guard";
 import { UserResponseInterface } from "./types/userResponse.interface";
-import { use } from "passport";
-import { User } from "./decorators/user.decorators";
-import { UserEntity } from "./user.entity";
 
 @SwaggerUserApiTags()
 @Controller("/api/v2/users")
