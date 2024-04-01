@@ -7,12 +7,16 @@ export default async function seedDatabese(): Promise<void> {
     const userCount = await entityManager.count(UserEntity);
     if (!userCount) {
       const userName = "Admin";
+      const email = "email@example.com";
       const password = randomBytes(12).toString("hex");
       const newUser = new UserEntity();
       newUser.userName = userName;
+      newUser.email = email;
       newUser.password = password;
       await entityManager.save(newUser);
-      console.log(`userName: ${userName} password: ${password}`);
+      console.log(
+        `userName: ${userName} email: ${email} password: ${password}`
+      );
     }
   });
 }

@@ -24,6 +24,12 @@ export class UserEntity {
   userName: string;
 
   @ApiProperty({
+    example: "email@example.com",
+  })
+  @Column()
+  email: string;
+
+  @ApiProperty({
     example: "dc27ed128c2a755db896a6638",
   })
   @Column({ select: false })
@@ -38,7 +44,7 @@ export class UserEntity {
   updatedAt: Date;
 
   @BeforeInsert()
-  async hasPassworld() {
+  async hashPassworld() {
     this.password = await hash(this.password, 10);
   }
 }

@@ -5,9 +5,9 @@ services:
     container_name: postgres
     image: postgres:14
     environment:
-      - POSTGRES_USER=kostya_stage2
+      - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=123
-      - POSTGRES_DB=stage2_server_v2
+      - POSTGRES_DB=e-commerce_db
     volumes:
       - ./pgdata:/var/lib/postgresql/data
     ports:
@@ -22,9 +22,9 @@ services:
       - PORT=3000
       - POSTGRES_PORT=5432
       - POSTGRES_HOST=postgres
-      - POSTGRES_USER=kostya_stage2
+      - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=123
-      - POSTGRES_DB=stage2_server_v2
+      - POSTGRES_DB=e-commerce_db
     depends_on:
       - postgres
     restart: always
