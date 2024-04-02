@@ -12,7 +12,7 @@ async function bootstrap() {
   const configSwagger = new DocumentBuilder()
     .setTitle("Corporation")
     .setDescription(
-      "This is the Training Server of the IT Academy. Management of departments and employees."
+      "This is the Training Server of the IT Academy. Management of categories and products."
     )
     .setVersion("2.0")
     .build();

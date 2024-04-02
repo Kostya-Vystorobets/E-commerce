@@ -1,14 +1,14 @@
-import { DepartmentEntity } from "src/department/department.entity";
 import { IsNotEmpty } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
+import { CategoryEntity } from "src/category/category.entity";
 
-export class CreateEmployeeDto {
+export class CreateProductDto {
   @IsNotEmpty()
   @ApiProperty({ example: "Sampson" })
   readonly userName: string;
 
   @IsNotEmpty()
-  @ApiProperty({ example: "employee@webui.com" })
+  @ApiProperty({ example: "product@webui.com" })
   readonly email: string;
 
   @IsNotEmpty()
@@ -19,5 +19,5 @@ export class CreateEmployeeDto {
   @ApiProperty({ example: "Daines" })
   readonly lastName: string;
 
-  department: DepartmentEntity;
+  сategory: CategoryEntity;
 }

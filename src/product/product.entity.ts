@@ -1,4 +1,3 @@
-import { DepartmentEntity } from "./../department/department.entity";
 import {
   Column,
   CreateDateColumn,
@@ -8,9 +7,10 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 import { ApiProperty } from "@nestjs/swagger";
+import { CategoryEntity } from "src/category/category.entity";
 
-@Entity({ name: "employees" })
-export class EmployeeEntity {
+@Entity({ name: "products" })
+export class ProductEntity {
   @ApiProperty({ example: "12532" })
   @PrimaryGeneratedColumn()
   id: number;
@@ -27,7 +27,7 @@ export class EmployeeEntity {
   @Column()
   lastName: string;
 
-  @ApiProperty({ example: "employee@webui.com" })
+  @ApiProperty({ example: "product@webui.com" })
   @Column()
   email: string;
 
@@ -40,8 +40,8 @@ export class EmployeeEntity {
   updatedAt: Date;
 
   @ManyToOne(
-    () => DepartmentEntity,
-    (department: DepartmentEntity) => department.employees
+    () => CategoryEntity,
+    (сategory: CategoryEntity) => сategory.products
   )
-  department: Promise<DepartmentEntity>;
+  сategory: Promise<CategoryEntity>;
 }

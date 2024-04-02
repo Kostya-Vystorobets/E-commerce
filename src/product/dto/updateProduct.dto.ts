@@ -1,8 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty } from "class-validator";
 
-export class UpdateEmployeeDto {
+export class UpdateProductDto {
   @IsNotEmpty()
-  @ApiProperty({ example: "employee@webui.com" })
+  @ApiProperty({ example: "product@webui.com" })
   readonly email: string;
 }

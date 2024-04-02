@@ -7,7 +7,7 @@ ormconfig.ts
 
 
 
-/src/employee/decorators
+/src/product/decorators
 /dist
 /pgdata
 /node_modules

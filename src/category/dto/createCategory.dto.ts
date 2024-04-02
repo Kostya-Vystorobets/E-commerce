@@ -1,8 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty } from "class-validator";
-import { EmployeeEntity } from "src/employee/employee.entity";
+import { ProductEntity } from "src/product/product.entity";
 
-export class CreateDepartmentDto {
+export class CreateCategoryDto {
   @IsNotEmpty()
   @ApiProperty({ example: "General Management" })
   readonly name: string;
@@ -11,5 +11,5 @@ export class CreateDepartmentDto {
   @ApiProperty({ example: "Responsible for the management of the company" })
   readonly description: string;
 
-  readonly employees: Promise<EmployeeEntity[]>;
+  readonly products: Promise<ProductEntity[]>;
 }

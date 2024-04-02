@@ -1,11 +1,11 @@
-import { EmployeeModule } from "./employee/employee.module";
-import { DepartmentModule } from "./department/department.module";
+import { ProductModule } from "./product/product.module";
 import { UserModule } from "./user/user.module";
 import { MiddlewareConsumer, Module, RequestMethod } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import configuration from "./configuration";
 import { AuthMiddleware } from "./middlewares/auth.middleware";
+import { CategoryModule } from "./category/category.module";
 
 @Module({
   imports: [
@@ -30,8 +30,8 @@ import { AuthMiddleware } from "./middlewares/auth.middleware";
       inject: [ConfigService],
     }),
     UserModule,
-    DepartmentModule,
-    EmployeeModule,
+    CategoryModule,
+    ProductModule,
   ],
 })
 export class AppModule {

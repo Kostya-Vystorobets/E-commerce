@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { EmployeeEntity } from "src/employee/employee.entity";
+import { ProductEntity } from "src/product/product.entity";
+
 import {
   Column,
   CreateDateColumn,
@@ -10,8 +11,8 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 
-@Entity({ name: "departments" })
-export class DepartmentEntity {
+@Entity({ name: "categories" })
+export class CategoryEntity {
   @ApiProperty({ example: "87532" })
   @PrimaryGeneratedColumn()
   id: number;
@@ -33,14 +34,14 @@ export class DepartmentEntity {
   updatedAt: Date;
 
   @OneToMany(
-    () => EmployeeEntity,
-    (employee: EmployeeEntity) => employee.department,
+    () => ProductEntity,
+    (product: ProductEntity) => product.сategory,
     {
       nullable: false,
       onDelete: "RESTRICT",
     }
   )
-  @JoinColumn({ name: "employees" })
+  @JoinColumn({ name: "products" })
   @ApiProperty()
-  employees: Promise<EmployeeEntity[]>;
+  products: Promise<ProductEntity[]>;
 }
