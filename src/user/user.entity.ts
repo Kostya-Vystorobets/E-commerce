@@ -44,7 +44,7 @@ export class UserEntity {
   updatedAt: Date;
 
   @BeforeInsert()
-  async hashPassworld() {
+  async hashPassword() {
     this.password = await hash(this.password, 10);
   }
 }

@@ -6,7 +6,6 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
-import { ConfigModule, ConfigService } from "@nestjs/config";
 import { UserResponseInterface } from "./types/userResponse.interface";
 
 @Injectable()

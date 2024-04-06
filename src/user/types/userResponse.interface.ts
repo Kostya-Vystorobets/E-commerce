@@ -1,4 +1,4 @@
-import { UserType } from "./user.tupe";
+import { UserType } from "./user.type";
 
 export interface UserResponseInterface {
   user: UserType & { token: string };
