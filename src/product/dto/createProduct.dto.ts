@@ -1,23 +1,60 @@
-import { IsNotEmpty } from "class-validator";
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsBoolean,
+  IsOptional,
+  IsDateString,
+} from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 import { CategoryEntity } from "src/category/category.entity";
 
 export class CreateProductDto {
   @IsNotEmpty()
-  @ApiProperty({ example: "Sampson" })
-  readonly userName: string;
+  @ApiProperty({ example: "Handbag" })
+  readonly name: string;
 
   @IsNotEmpty()
-  @ApiProperty({ example: "product@webui.com" })
-  readonly email: string;
+  @ApiProperty({ example: "ABC123" })
+  readonly productCode: string;
 
   @IsNotEmpty()
-  @ApiProperty({ example: "Harry" })
-  readonly firstName: string;
+  @IsNumber()
+  @ApiProperty({ example: 30.0 })
+  readonly price: number;
 
   @IsNotEmpty()
-  @ApiProperty({ example: "Daines" })
-  readonly lastName: string;
+  @IsNumber()
+  @ApiProperty({ example: 10 })
+  readonly quantity: number;
+
+  @IsNotEmpty()
+  @ApiProperty({ example: "A wonderful product" })
+  readonly description: string;
+
+  @IsNotEmpty()
+  @IsBoolean()
+  @ApiProperty({ example: true })
+  readonly isSold: boolean;
+
+  @IsNotEmpty()
+  @IsBoolean()
+  @ApiProperty({ example: true })
+  readonly isActive: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  @ApiProperty({ example: false })
+  readonly isDeleted?: boolean;
+
+  @IsOptional()
+  @IsDateString()
+  @ApiProperty({ example: "2024-04-07T10:00:00Z" })
+  readonly soldAt?: Date;
+
+  @IsOptional()
+  @IsDateString()
+  @ApiProperty({ example: "2024-04-07T10:00:00Z" })
+  readonly deletedAt?: Date;
 
   сategory: CategoryEntity;
 }

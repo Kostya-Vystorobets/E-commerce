@@ -11,7 +11,7 @@ import {
 } from "@nestjs/common";
 
 import { UpdateProductDto } from "./dto/updateProduct.dto";
-import { AuthGuard } from "src/user/guards/auth.guard";
+
 import { ProductSevice } from "./product.service";
 import { ProductEntity } from "./product.entity";
 import {
@@ -20,6 +20,7 @@ import {
   SwaggerProductGetById,
   SwaggerProductUpdeteById,
 } from "./decorators/product.decorators";
+import { AuthGuard } from "src/user/guards/auth.guard";
 
 @SwaggerProductApiTags()
 @Controller("/api/v2/products")

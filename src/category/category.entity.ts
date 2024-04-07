@@ -13,15 +13,15 @@ import {
 
 @Entity({ name: "categories" })
 export class CategoryEntity {
-  @ApiProperty({ example: "87532" })
+  @ApiProperty({ example: "36" })
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ApiProperty({ example: "General Management" })
+  @ApiProperty({ example: "Accessories" })
   @Column()
   name: string;
 
-  @ApiProperty({ example: "Responsible for the management of the company" })
+  @ApiProperty({ example: "Description" })
   @Column()
   description: string;
 
@@ -32,6 +32,10 @@ export class CategoryEntity {
   @ApiProperty()
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
+
+  @ApiProperty()
+  @Column({ name: "is_deleted", default: false })
+  isDeleted: boolean;
 
   @OneToMany(
     () => ProductEntity,
