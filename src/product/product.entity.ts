@@ -44,16 +44,8 @@ export class ProductEntity {
   isActive: boolean;
 
   @ApiProperty()
-  @Column({ name: "is_deleted", default: false })
-  isDeleted: boolean;
-
-  @ApiProperty()
   @Column({ name: "sold_at", nullable: true })
   soldAt: Date;
-
-  @ApiProperty()
-  @Column({ name: "deleted_at", nullable: true })
-  deletedAt: Date;
 
   @ApiProperty()
   @CreateDateColumn({ name: "created_at" })

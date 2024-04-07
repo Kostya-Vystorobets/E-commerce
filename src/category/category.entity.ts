@@ -33,10 +33,6 @@ export class CategoryEntity {
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
 
-  @ApiProperty()
-  @Column({ name: "is_deleted", default: false })
-  isDeleted: boolean;
-
   @OneToMany(
     () => ProductEntity,
     (product: ProductEntity) => product.сategory,

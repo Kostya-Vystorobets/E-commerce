@@ -42,19 +42,9 @@ export class CreateProductDto {
   readonly isActive: boolean;
 
   @IsOptional()
-  @IsBoolean()
-  @ApiProperty({ example: false })
-  readonly isDeleted?: boolean;
-
-  @IsOptional()
   @IsDateString()
   @ApiProperty({ example: "2024-04-07T10:00:00Z" })
   readonly soldAt?: Date;
-
-  @IsOptional()
-  @IsDateString()
-  @ApiProperty({ example: "2024-04-07T10:00:00Z" })
-  readonly deletedAt?: Date;
 
   сategory: CategoryEntity;
 }
