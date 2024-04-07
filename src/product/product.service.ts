@@ -27,21 +27,12 @@ export class ProductSevice {
   ): Promise<ProductEntity> {
     const newProduct = new ProductEntity();
     Object.assign(newProduct, createProductDto);
-    const сheckEmail = await this.productRepository.findOne({
-      email: newProduct.email,
+    const сheckProductCode = await this.productRepository.findOne({
+      productCode: newProduct.productCode,
     });
-    if (сheckEmail) {
+    if (сheckProductCode) {
       throw new HttpException(
-        "The product with this Email already exists.",
-        HttpStatus.BAD_REQUEST
-      );
-    }
-    const сheckUserName = await this.productRepository.findOne({
-      userName: newProduct.userName,
-    });
-    if (сheckUserName) {
-      throw new HttpException(
-        "The product with this User Name already exists.",
+        "The product with this productCode already exists.",
         HttpStatus.BAD_REQUEST
       );
     }
@@ -55,12 +46,12 @@ export class ProductSevice {
     const product = await this.getById(id);
     Object.assign(product, updateProductDto);
 
-    const сheckEmail = await this.productRepository.findOne({
-      email: product.email,
+    const сheckProductCode = await this.productRepository.findOne({
+      productCode: product.productCode,
     });
-    if (сheckEmail) {
+    if (сheckProductCode) {
       throw new HttpException(
-        "The product with this Email already exists.",
+        "The product with this productCode already exists.",
         HttpStatus.BAD_REQUEST
       );
     }

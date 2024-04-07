@@ -15,21 +15,45 @@ export class ProductEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ApiProperty({ example: "Sampson" })
+  @ApiProperty({ example: "Handbag" })
   @Column()
-  userName: string;
+  name: string;
 
-  @ApiProperty({ example: "Harry" })
-  @Column()
-  firstName: string;
+  @ApiProperty({ example: "ABC123" })
+  @Column({ name: "product_code" })
+  productCode: string;
 
-  @ApiProperty({ example: "Daines" })
+  @ApiProperty({ example: 30.0 })
   @Column()
-  lastName: string;
+  price: number;
 
-  @ApiProperty({ example: "product@webui.com" })
+  @ApiProperty({ example: 10 })
   @Column()
-  email: string;
+  quantity: number;
+
+  @ApiProperty({ example: "A wonderful product" })
+  @Column()
+  description: string;
+
+  @ApiProperty({ example: true })
+  @Column({ name: "is_sold" })
+  isSold: boolean;
+
+  @ApiProperty({ example: true })
+  @Column({ name: "is_active", default: true })
+  isActive: boolean;
+
+  @ApiProperty()
+  @Column({ name: "is_deleted", default: false })
+  isDeleted: boolean;
+
+  @ApiProperty()
+  @Column({ name: "sold_at", nullable: true })
+  soldAt: Date;
+
+  @ApiProperty()
+  @Column({ name: "deleted_at", nullable: true })
+  deletedAt: Date;
 
   @ApiProperty()
   @CreateDateColumn({ name: "created_at" })
