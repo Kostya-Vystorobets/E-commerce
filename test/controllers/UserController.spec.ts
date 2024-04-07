@@ -7,6 +7,7 @@ import { UserEntity } from "../../src/user/user.entity";
 import { hash } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { faker } from "@faker-js/faker";
+import { CreateUserDto } from "../../src/user/dto/createUser.dto";
 
 describe("UserController", () => {
   let controller: UserController;
@@ -20,6 +21,7 @@ describe("UserController", () => {
           provide: UserSevice,
           useValue: {
             login: jest.fn(),
+            createUser: jest.fn(),
             buildUserResponse: jest.fn(),
           },
         },
@@ -117,6 +119,86 @@ describe("UserController", () => {
         expect(error).toBeInstanceOf(HttpException);
         expect(error.message).toBe("Invalid credentials");
         expect(error.getStatus()).toBe(HttpStatus.UNAUTHORIZED);
+      }
+    });
+  });
+
+  describe("create", () => {
+    it("should create a new user and return user data upon successful creation", async () => {
+      const createUserDto: CreateUserDto = {
+        userName: faker.internet.userName(),
+        email: faker.internet.email(),
+        password: faker.internet.password(),
+      };
+
+      const mockUser: UserEntity = {
+        id: faker.number.int(),
+        userName: createUserDto.userName,
+        email: createUserDto.email,
+        password: faker.internet.password(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        hashPassword: async function () {
+          this.password = await hash(this.password, 10);
+        },
+      };
+      const mockToken = sign({ userId: mockUser.id }, "secretKey", {
+        expiresIn: "1h",
+      });
+
+      jest.spyOn(userService, "createUser").mockResolvedValueOnce(mockUser);
+
+      const buildUserResponseSpy = jest.spyOn(userService, "buildUserResponse");
+      buildUserResponseSpy.mockReturnValueOnce({
+        user: {
+          ...mockUser,
+          token: mockToken,
+        },
+      });
+
+      const result = await controller.create(createUserDto);
+
+      expect(result).toBeDefined();
+      expect(result.user.token).toBe(mockToken);
+      expect(buildUserResponseSpy).toHaveBeenCalledWith(mockUser);
+    });
+
+    it("should throw an exception if a user with the provided email already exists", async () => {
+      const existingUser: UserEntity = {
+        id: faker.number.int(),
+        userName: faker.internet.userName(),
+        email: faker.internet.email(),
+        password: faker.internet.password(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        hashPassword: async function () {
+          this.password = await hash(this.password, 10);
+        },
+      };
+
+      const createUserDto: CreateUserDto = {
+        userName: faker.internet.userName(),
+        email: existingUser.email,
+        password: faker.internet.password(),
+      };
+
+      jest
+        .spyOn(userService, "createUser")
+        .mockRejectedValueOnce(
+          new HttpException(
+            "The User with this User Email already exists.",
+            HttpStatus.BAD_REQUEST
+          )
+        );
+
+      try {
+        await controller.create(createUserDto);
+      } catch (error) {
+        expect(error).toBeInstanceOf(HttpException);
+        expect(error.message).toBe(
+          "The User with this User Email already exists."
+        );
+        expect(error.getStatus()).toBe(HttpStatus.BAD_REQUEST);
       }
     });
   });
