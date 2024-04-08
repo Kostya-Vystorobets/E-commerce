@@ -300,7 +300,7 @@ describe("CategoryService", () => {
         await service.deleteById(categoryId);
       } catch (error) {
         expect(error).toBeInstanceOf(HttpException);
-        expect(error.message).toBe("The сategory with this ID was not found.");
+        expect(error.message).toBe("The Category with this ID was not found.");
         expect(error.getStatus()).toBe(HttpStatus.NOT_FOUND);
       }
     });

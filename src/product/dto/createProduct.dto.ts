@@ -6,7 +6,7 @@ import {
   IsDateString,
 } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
-import { CategoryEntity } from "src/category/category.entity";
+import { CategoryEntity } from "../../category/category.entity";
 
 export class CreateProductDto {
   @IsNotEmpty()
