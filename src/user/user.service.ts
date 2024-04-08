@@ -9,7 +9,7 @@ import { sign } from "jsonwebtoken";
 import { UserResponseInterface } from "./types/userResponse.interface";
 
 @Injectable()
-export class UserSevice {
+export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>

@@ -9,9 +9,10 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from "@nestjs/swagger";
-import { CreateProductDto } from "src/product/dto/createProduct.dto";
-import { ProductEntity } from "src/product/product.entity";
+
+import { ProductEntity } from "../../product/product.entity";
 import { CategoryEntity } from "../category.entity";
+import { CreateProductDto } from "../../product/dto/createProduct.dto";
 
 export function SwaggerCategoryApiTags() {
   return applyDecorators(ApiTags("Category"));

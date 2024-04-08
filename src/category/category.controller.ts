@@ -12,13 +12,13 @@ import {
   ValidationPipe,
 } from "@nestjs/common";
 
-import { CreateProductDto } from "src/product/dto/createProduct.dto";
-import { AuthGuard } from "src/user/guards/auth.guard";
+import { CreateProductDto } from "../product/dto/createProduct.dto";
+import { AuthGuard } from "../user/guards/auth.guard";
 import { DeleteResult } from "typeorm";
 import { CreateCategoryDto } from "./dto/createCategory.dto";
 import { UpdateCategoryDto } from "./dto/updateCategory.dto";
-import { ProductEntity } from "src/product/product.entity";
-import { CategorySevice } from "./category.service";
+import { ProductEntity } from "../../src/product/product.entity";
+import { CategoryService } from "./category.service";
 import {
   SwaggerCategoryApiTags,
   SwaggerCategoryCreate,
@@ -27,7 +27,7 @@ import {
   SwaggerCategoryGetAll,
   SwaggerCategoryGetById,
   SwaggerCategoryUpdeteById,
-} from "./decorators/department.decorators";
+} from "./decorators/category.decorators";
 import { CategorysOptionInterface } from "./types/categoriesOptions.interface";
 import { CategorysResponseInterface } from "./types/categoriesResponse.interface";
 import { CategoryEntity } from "./category.entity";
@@ -35,7 +35,7 @@ import { CategoryEntity } from "./category.entity";
 @SwaggerCategoryApiTags()
 @Controller("/api/v2/categories")
 export class CategoryController {
-  constructor(private readonly сategoryServise: CategorySevice) {}
+  constructor(private readonly сategoryServise: CategoryService) {}
   @Get()
   @SwaggerCategoryGetAll()
   @UseGuards(AuthGuard)
@@ -77,7 +77,7 @@ export class CategoryController {
     @Param("id") id: number,
     @Body() updateCategoryDto: UpdateCategoryDto
   ): Promise<CategoryEntity> {
-    return this.сategoryServise.updeteById(id, updateCategoryDto);
+    return this.сategoryServise.updateById(id, updateCategoryDto);
   }
   @Delete(":id")
   @SwaggerCategoryDeleteById()

@@ -1,21 +1,21 @@
-import { ProductSevice } from "../product/product.service";
 import { CreateCategoryDto } from "./dto/createCategory.dto";
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { DeleteResult, getRepository, Repository } from "typeorm";
 import { UpdateCategoryDto } from "./dto/updateCategory.dto";
-import { CreateProductDto } from "src/product/dto/createProduct.dto";
+import { CreateProductDto } from "../../src/product/dto/createProduct.dto";
 import { ProductEntity } from "src/product/product.entity";
 import { CategorysOptionInterface } from "./types/categoriesOptions.interface";
 import { CategorysResponseInterface } from "./types/categoriesResponse.interface";
 import { CategoryEntity } from "./category.entity";
+import { ProductService } from "../../src/product/product.service";
 
 @Injectable()
-export class CategorySevice {
+export class CategoryService {
   constructor(
     @InjectRepository(CategoryEntity)
     private readonly сategoryRepository: Repository<CategoryEntity>,
-    private readonly productSevice: ProductSevice
+    private readonly productService: ProductService
   ) {}
   async getAll(
     query: CategorysOptionInterface
@@ -69,13 +69,15 @@ export class CategorySevice {
     createProductDto: CreateProductDto
   ): Promise<ProductEntity> {
     const currentCategory = await this.getById(id);
-    const newProduct = await this.productSevice.createProduct(createProductDto);
+    const newProduct = await this.productService.createProduct(
+      createProductDto
+    );
     (await currentCategory.products).push(newProduct);
     await this.сategoryRepository.save(currentCategory);
     return newProduct;
   }
 
-  async updeteById(
+  async updateById(
     id: number,
     updateCategoryDto: UpdateCategoryDto
   ): Promise<CategoryEntity> {

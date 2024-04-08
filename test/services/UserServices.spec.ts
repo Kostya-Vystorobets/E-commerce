@@ -1,7 +1,7 @@
 import { UserEntity } from "../../src/user/user.entity";
 import { Test, TestingModule } from "@nestjs/testing";
 import { HttpException } from "@nestjs/common";
-import { UserSevice } from "../../src/user/user.service";
+import { UserService } from "../../src/user/user.service";
 import { LoginUserDto } from "../../src/user/dto/login.dto";
 import { hash } from "bcrypt";
 import { faker } from "@faker-js/faker";
@@ -10,13 +10,13 @@ import { getRepositoryToken } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 
 describe("UserSevice", () => {
-  let service: UserSevice;
+  let service: UserService;
   let userRepository: Repository<UserEntity>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        UserSevice,
+        UserService,
         {
           provide: getRepositoryToken(UserEntity),
           useValue: {
@@ -28,7 +28,7 @@ describe("UserSevice", () => {
       ],
     }).compile();
 
-    service = module.get<UserSevice>(UserSevice);
+    service = module.get<UserService>(UserService);
     userRepository = module.get<Repository<UserEntity>>(
       getRepositoryToken(UserEntity)
     );

@@ -12,7 +12,7 @@ import {
 
 import { UpdateProductDto } from "./dto/updateProduct.dto";
 
-import { ProductSevice } from "./product.service";
+import { ProductService } from "./product.service";
 import { ProductEntity } from "./product.entity";
 import {
   SwaggerProductApiTags,
@@ -25,7 +25,7 @@ import { AuthGuard } from "src/user/guards/auth.guard";
 @SwaggerProductApiTags()
 @Controller("/api/v2/products")
 export class ProductController {
-  constructor(private readonly productServise: ProductSevice) {}
+  constructor(private readonly productServise: ProductService) {}
   @Get(":id")
   @SwaggerProductGetById()
   @UseGuards(AuthGuard)
