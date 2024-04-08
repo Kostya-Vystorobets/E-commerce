@@ -3,19 +3,15 @@ import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { DeleteResult, getRepository, Repository } from "typeorm";
 import { UpdateCategoryDto } from "./dto/updateCategory.dto";
-import { CreateProductDto } from "../../src/product/dto/createProduct.dto";
-import { ProductEntity } from "src/product/product.entity";
 import { CategorysOptionInterface } from "./types/categoriesOptions.interface";
 import { CategorysResponseInterface } from "./types/categoriesResponse.interface";
 import { CategoryEntity } from "./category.entity";
-import { ProductService } from "../../src/product/product.service";
 
 @Injectable()
 export class CategoryService {
   constructor(
     @InjectRepository(CategoryEntity)
-    private readonly сategoryRepository: Repository<CategoryEntity>,
-    private readonly productService: ProductService
+    private readonly сategoryRepository: Repository<CategoryEntity>
   ) {}
   async getAll(
     query: CategorysOptionInterface
@@ -57,24 +53,11 @@ export class CategoryService {
     });
     if (сheckName) {
       throw new HttpException(
-        "The сategory with this Name already exists.",
+        "The Category with this Name already exists.",
         HttpStatus.BAD_REQUEST
       );
     }
     return await this.сategoryRepository.save(newCategory);
-  }
-
-  async createProductInCategory(
-    id: number,
-    createProductDto: CreateProductDto
-  ): Promise<ProductEntity> {
-    const currentCategory = await this.getById(id);
-    const newProduct = await this.productService.createProduct(
-      createProductDto
-    );
-    (await currentCategory.products).push(newProduct);
-    await this.сategoryRepository.save(currentCategory);
-    return newProduct;
   }
 
   async updateById(
@@ -82,6 +65,12 @@ export class CategoryService {
     updateCategoryDto: UpdateCategoryDto
   ): Promise<CategoryEntity> {
     const сategory = await this.getById(id);
+    if (!сategory) {
+      throw new HttpException(
+        "The Category with this ID was not found.",
+        HttpStatus.NOT_FOUND
+      );
+    }
     Object.assign(сategory, updateCategoryDto);
     return await this.сategoryRepository.save(сategory);
   }

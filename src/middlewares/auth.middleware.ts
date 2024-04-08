@@ -1,4 +1,4 @@
-import { UserSevice } from "./../user/user.service";
+import { UserService } from "./../user/user.service";
 import { Injectable, NestMiddleware } from "@nestjs/common";
 import { verify } from "jsonwebtoken";
 import { NextFunction, Response } from "express";
@@ -6,7 +6,7 @@ import { ExpressRequestInterface } from "src/types/expressRequest.interface";
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
-  constructor(private readonly userSevice: UserSevice) {}
+  constructor(private readonly userSevice: UserService) {}
   async use(req: ExpressRequestInterface, res: Response, next: NextFunction) {
     if (!req.headers.authorization) {
       req.user = null;

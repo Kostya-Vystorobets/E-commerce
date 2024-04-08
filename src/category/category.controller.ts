@@ -59,16 +59,6 @@ export class CategoryController {
   ): Promise<CategoryEntity> {
     return this.сategoryServise.createCategory(createCategoryDto);
   }
-  @Post(":id/products")
-  @SwaggerCategoryCreateProductInCategory()
-  @UseGuards(AuthGuard)
-  @UsePipes(new ValidationPipe())
-  async createProductInCategory(
-    @Param("id") id: number,
-    @Body() createProductDto: CreateProductDto
-  ): Promise<ProductEntity> {
-    return this.сategoryServise.createProductInCategory(id, createProductDto);
-  }
   @Patch(":id")
   @SwaggerCategoryUpdeteById()
   @UseGuards(AuthGuard)

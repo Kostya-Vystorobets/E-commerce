@@ -15,14 +15,14 @@ import {
 } from "./decorators/user.decorators.swagger";
 import { CreateUserDto } from "./dto/createUser.dto";
 import { LoginUserDto } from "./dto/login.dto";
-import { UserSevice } from "./user.service";
+import { UserService } from "./user.service";
 import { AuthGuard } from "./guards/auth.guard";
 import { UserResponseInterface } from "./types/userResponse.interface";
 
 @SwaggerUserApiTags()
 @Controller("/api/v2/users")
 export class UserController {
-  constructor(private readonly userService: UserSevice) {}
+  constructor(private readonly userService: UserService) {}
   @Post("/login")
   @SwaggerUserLogin()
   @UsePipes(new ValidationPipe())
