@@ -20,7 +20,7 @@ import {
   SwaggerProductGetById,
   SwaggerProductUpdeteById,
 } from "./decorators/product.decorators";
-import { AuthGuard } from "src/user/guards/auth.guard";
+import { AuthGuard } from "../user/guards/auth.guard";
 
 @SwaggerProductApiTags()
 @Controller("/api/v2/products")
@@ -40,7 +40,7 @@ export class ProductController {
     @Param("id") id: number,
     @Body() updateProducttDto: UpdateProductDto
   ): Promise<ProductEntity> {
-    return this.productServise.updeteById(id, updateProducttDto);
+    return this.productServise.updateById(id, updateProducttDto);
   }
   @Delete(":id")
   @SwaggerProductDeleteById()

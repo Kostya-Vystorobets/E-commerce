@@ -39,7 +39,7 @@ export class ProductService {
     return await this.productRepository.save(newProduct);
   }
 
-  async updeteById(
+  async updateById(
     id: number,
     updateProductDto: UpdateProductDto
   ): Promise<ProductEntity> {
