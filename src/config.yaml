@@ -1,0 +1,11 @@
+http:
+  host: "localhost"
+  port: 3000
+
+db:
+  postgres:
+    host: "localhost"
+    port: 5433
+    username: "admin"
+    password: "123"
+    database: "e-commerce_db"

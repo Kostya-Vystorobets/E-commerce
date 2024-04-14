@@ -35,13 +35,10 @@ $ npm install
 ## Running the app
 
 ```bash
-# development
 $ npm run start
 
-# watch mode
 $ npm run start:dev
 
-# production mode
 $ npm run start:prod
 ```
 
@@ -51,23 +48,21 @@ $ npm run start:prod
 # unit tests
 $ npm run test
 
-# e2e tests
-$ npm run test:e2e
+# # e2e tests
+# $ npm run test:e2e
 
-# test coverage
-$ npm run test:cov
+# # test coverage
+# $ npm run test:cov
 ```
 
-## Support
+## Build Docker Image
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+$ docker build -t e-commerce-app .
+```
 
-## Stay in touch
+## Run Docker Container
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+```bash
+$ docker run -d -p 3000:3000 --name e-commerce-container e-commerce-app
+```

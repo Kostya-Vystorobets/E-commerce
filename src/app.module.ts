@@ -1,10 +1,11 @@
-import { EmployeeModule } from "./employee/employee.module";
-import { DepartmentModule } from "./department/department.module";
+import { ProductModule } from "./product/product.module";
 import { UserModule } from "./user/user.module";
-import { Module } from "@nestjs/common";
+import { MiddlewareConsumer, Module, RequestMethod } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import configuration from "./configuration";
+import { AuthMiddleware } from "./middlewares/auth.middleware";
+import { CategoryModule } from "./category/category.module";
 
 @Module({
   imports: [
@@ -29,8 +30,15 @@ import configuration from "./configuration";
       inject: [ConfigService],
     }),
     UserModule,
-    DepartmentModule,
-    EmployeeModule,
+    CategoryModule,
+    ProductModule,
   ],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuthMiddleware).forRoutes({
+      path: "*",
+      method: RequestMethod.ALL,
+    });
+  }
+}

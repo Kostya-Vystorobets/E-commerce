@@ -1,39 +1,33 @@
-version: "3.8"
+version: "3"
 
 services:
   postgres:
     container_name: postgres
-    image: postgres:14
-    environment:
-      - POSTGRES_USER=kostya_stage2
-      - POSTGRES_PASSWORD=123
-      - POSTGRES_DB=stage2_server_v2
-    volumes:
-      - ./pgdata:/var/lib/postgresql/data
+    image: postgres:latest
     ports:
-      - "5432:5432"
-    restart: unless-stopped
-  app:
-    container_name: app
-    image: app
+      - "5433:5433"
+    environment:
+      # POSTGRES_PORT: 5432
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: e-commerce_db
+    networks:
+      - backend
+
+  nestjs:
     build:
       context: .
-    environment:
-      - PORT=3000
-      - POSTGRES_PORT=5432
-      - POSTGRES_HOST=postgres
-      - POSTGRES_USER=kostya_stage2
-      - POSTGRES_PASSWORD=123
-      - POSTGRES_DB=stage2_server_v2
+    container_name: nestjs
+    ports:
+      - "3000:3000"
+    networks:
+      - backend
     depends_on:
       - postgres
-    restart: always
-    ports:
-      - 3000:3000
+    environment:
+      - NODE_ENV=production
     volumes:
-      - .:/app
-      - /app/node_modules
-    command: npm run start:dev
+      - ./config.yaml:/app/dist/config.yaml
 
-volumes:
-  pgdata:
+networks:
+  backend:
