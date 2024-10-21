@@ -1,19 +1,23 @@
-FROM node:16.13-alpine
+# Use an official Node.js runtime as a parent image
+FROM node:18-alpine
 
-WORKDIR /app
+# Set the working directory
+WORKDIR /usr/src/app
+
+# Copy package.json and package-lock.json
 COPY package*.json ./
-COPY config.yaml ./dist/config.yaml
-RUN npm install
+
+# Install dependencies
+RUN npm install --production
+
+# Copy config.yaml into the appropriate directory
+COPY config.yaml /usr/src/app/dist/
+
+# Copy the rest of the application code
 COPY . .
 
-RUN npm run build
-
-ENV PORT=3000
-ENV POSTGRES_HOST=postgres
-ENV POSTGRES_USER=admin
-ENV POSTGRES_PASSWORD=123
-ENV POSTGRES_DB=e-commerce_db
-
+# Expose the port that the app runs on
 EXPOSE 3000
 
-CMD ["npm", "run", "start:prod"]
+# Command to run the Nest.js application
+CMD ["npm", "run", "start:dev"]

@@ -3,7 +3,7 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { HttpException } from "@nestjs/common";
 import { UserService } from "../../src/user/user.service";
 import { LoginUserDto } from "../../src/user/dto/login.dto";
-import { hash } from "bcrypt";
+import { hash } from "bcryptjs";
 import { faker } from "@faker-js/faker";
 import { CreateUserDto } from "../../src/user/dto/createUser.dto";
 import { getRepositoryToken } from "@nestjs/typeorm";
