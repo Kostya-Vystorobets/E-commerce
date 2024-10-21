@@ -66,3 +66,9 @@ $ docker build -t e-commerce-app .
 ```bash
 $ docker run -d -p 3000:3000 --name e-commerce-container e-commerce-app
 ```
+
+## Running the app with Docker Compose
+
+```bash
+$ docker-compose up --build
+```

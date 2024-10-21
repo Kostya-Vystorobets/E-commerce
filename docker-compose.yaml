@@ -1,33 +1,45 @@
-version: "3"
+version: "3.8"
 
 services:
-  postgres:
-    container_name: postgres
-    image: postgres:latest
-    ports:
-      - "5433:5433"
-    environment:
-      # POSTGRES_PORT: 5432
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: 123
-      POSTGRES_DB: e-commerce_db
-    networks:
-      - backend
-
-  nestjs:
+  app:
+    container_name: nest_app
     build:
       context: .
-    container_name: nestjs
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
-    networks:
-      - backend
     depends_on:
       - postgres
     environment:
       - NODE_ENV=production
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=e-commerce_db
     volumes:
-      - ./config.yaml:/app/dist/config.yaml
+      - .:/usr/src/app
+    networks:
+      - app-network
+
+  postgres:
+    container_name: postgres_db
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: e-commerce_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - app-network
 
 networks:
-  backend:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+    driver: local

@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { hash } from "bcrypt";
+import { hash } from "bcryptjs";
 import { ApiProperty } from "@nestjs/swagger";
 
 @Entity({ name: "users" })
